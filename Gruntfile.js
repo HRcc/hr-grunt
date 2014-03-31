@@ -152,6 +152,17 @@ module.exports = function(grunt) {
             }
         },
 
+        // Auto adding prefixes
+        autoprefixer: {
+            options: {
+                browsers: ['last 5 version', 'ie 8', 'ie 9']
+            },
+
+            main: {
+                src: '<%= options.base %>/temp/main.css' // globbing is also possible here
+            }
+        },
+
         // Watch for files and folder changes - NO MINIFICATION
         watch: {
             less: {
@@ -191,11 +202,13 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-notify');
+    grunt.loadNpmTasks('grunt-autoprefixer');
 
     // 4. Where we tell Grunt what to do when we type "grunt" into the terminal.
     grunt.registerTask('default', [
                                     'clean:all',
                                     'less',
+                                    'autoprefixer:main',
                                     'jshint',
                                     'concat:css',
                                     'concat:js',
